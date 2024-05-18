@@ -32,7 +32,7 @@ weather_labels = {
 
 def main():
     st.title('Weather Classifier System')
-    model = 'model_weather.hdf5'
+    model = load_model()
     file = st.file_uploader("Choose a weather photo from your computer", type=["jpg", "jpeg", "png"])
 
     if file is not None:
