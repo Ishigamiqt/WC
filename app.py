@@ -4,23 +4,20 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image
 import numpy as np
 
-# Function to load the TensorFlow model
 @st.cache_resource
 def load_model():
     model = tf.keras.models.load_model('model_weather.hdf5')
     return model
 
-# Function to preprocess the image for prediction
 def preprocess_image(image_data):
     img = Image.open(image_data)
-    img = img.convert('RGB')  # Ensure image is RGB (3 channels)
-    img = img.resize((244, 244))  # Resize image to match model's expected sizing
-    img = np.asarray(img)  # Convert PIL image to numpy array
-    img = img / 255.0  # Normalize pixel values
-    img = np.expand_dims(img, axis=0)  # Add batch dimension
+    img = img.convert('RGB')
+    img = img.resize((244, 244))
+    img = np.asarray(img)
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
     return img
 
-# Function to predict the weather class from the image
 def predict_weather(image_data, model):
     img = preprocess_image(image_data)
     prediction = model.predict(img)
@@ -28,10 +25,10 @@ def predict_weather(image_data, model):
     return predicted_class
 
 weather_labels = {
-    0: 'Cloudy',
+    0: 'Sunrise',
     1: 'Rainy',
     2: 'Shine',
-    3: 'Sunrise'}
+    3: 'Cloudy'}
 
 def main():
     st.title('Weather Classifier System')
